@@ -46,5 +46,32 @@ namespace FakeeDeck.ButtonType
             { "rocket-pods","https://static.wikia.nocookie.net/helldivers_gamepedia/images/e/e3/Eagle_110MM_Rocket_Pods_Icon.png"},
             { "bomb","https://static.wikia.nocookie.net/helldivers_gamepedia/images/5/5a/Eagle_500KG_Bomb_Icon.png"},
         };
+
+        public static string getButton(string Key)
+        {
+            return
+                "<div class=\"m-2\">" +
+                "  <form style=\"margin-bottom: 0px;\" method=\"post\" action=\"keyboard\\stratogem\">" +
+                "    <input type=\"hidden\" name=\"stratogem\" value=\"" + Key + "\">" +
+                "    <input style=\"background-image: url('" + stratogemsIcons[Key].ToString() + "'); width: 200px;height: 200px;background-color: aquamarine;\" type=\"submit\" value=\"" + FirstLetterToUpper(Key) + "\">" +
+                "  </form>" +
+                "</div>";
+        }
+
+        public static bool invokeAction(string Key)
+        {
+            return false;
+        }
+
+        public static string FirstLetterToUpper(string str)
+        {
+            if (str == null)
+                return null;
+
+            if (str.Length > 1)
+                return char.ToUpper(str[0]) + str.Substring(1);
+
+            return str.ToUpper();
+        }
     }
 }

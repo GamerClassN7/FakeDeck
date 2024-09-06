@@ -128,14 +128,7 @@ namespace FakeeDeck
         {
             foreach (var stratogem in HelldiversTwoMacro.stratogems)
             {
-                Console.WriteLine(HelldiversTwoMacro.stratogemsIcons[stratogem.Key]);
-                pageData +=
-                    "<div class=\"m-2\">" +
-                    "  <form style=\"margin-bottom: 0px;\" method=\"post\" action=\"keyboard\\stratogem\">" +
-                    "    <input type=\"hidden\" name=\"stratogem\" value=\"" + stratogem.Key + "\">" +
-                    "    <input style=\"background-image: url('"+ HelldiversTwoMacro.stratogemsIcons[stratogem.Key].ToString() + "'); width: 200px;height: 200px;background-color: aquamarine;\" type=\"submit\" value=\"" + FirstLetterToUpper(stratogem.Key) + "\">" +
-                    "  </form>" +
-                    "</div>";
+                pageData += HelldiversTwoMacro.getButton(stratogem.Key);
             }
 
 
@@ -153,15 +146,6 @@ namespace FakeeDeck
             listener.Close();
         }
 
-        public static string FirstLetterToUpper(string str)
-        {
-            if (str == null)
-                return null;
-
-            if (str.Length > 1)
-                return char.ToUpper(str[0]) + str.Substring(1);
-
-            return str.ToUpper();
-        }
+     
     }
 }
