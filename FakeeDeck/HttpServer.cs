@@ -132,7 +132,7 @@ namespace FakeeDeck
                 pageData +=
                     "<div class=\"m-2\">" +
                     "  <form style=\"margin-bottom: 0px;\" method=\"post\" action=\"keyboard\\stratogem\">" +
-                    "    <input type=\"hidden\" value=\""+ stratogem.Key + "\">" +
+                    "    <input type=\"hidden\" name=\"stratogem\" value=\"" + stratogem.Key + "\">" +
                     "    <input style=\"background-image: url('"+ HelldiversTwoMacro.stratogemsIcons[stratogem.Key].ToString() + "'); width: 200px;height: 200px;background-color: aquamarine;\" type=\"submit\" value=\"" + FirstLetterToUpper(stratogem.Key) + "\">" +
                     "  </form>" +
                     "</div>";
