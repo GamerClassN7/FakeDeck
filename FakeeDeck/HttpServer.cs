@@ -119,8 +119,6 @@ namespace FakeeDeck
             "</html>";
         public static string pageData = "";
 
-
-
         public static async Task HandleIncomingConnections()
         {
             bool runServer = true;
@@ -143,6 +141,7 @@ namespace FakeeDeck
                 Console.WriteLine(req.UserAgent);
                 Console.WriteLine();
 
+                //Parse Port Parameters
                 Dictionary<string, string> postParams = new Dictionary<string, string>();
                 if (req.HttpMethod == "POST")
                 {
@@ -171,7 +170,6 @@ namespace FakeeDeck
                     {
                         string module = req.Url.AbsolutePath.Replace("/button", "");
                         Console.WriteLine("Call module " + module);
-                        Console.WriteLine(postParams["stratogem"]);
 
                         callButtonAction(module, postParams);
 
@@ -263,6 +261,11 @@ namespace FakeeDeck
             foreach (var stratogem in HelldiversTwoMacro.stratogems)
             {
                 pageData += HelldiversTwoMacro.getButton(stratogem.Key);
+            }
+
+            foreach (var control in MediaMacro.mediaControls)
+            {
+                pageData += MediaMacro.getButton(control.Key);
             }
 
             // Create a Http server and start listening for incoming connections

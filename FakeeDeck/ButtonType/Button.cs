@@ -12,7 +12,7 @@ namespace FakeeDeck.ButtonType
         {
             return
                 "<div class=\"m-2\">" +
-                "  <form style=\"margin-bottom: 0px;\" method=\"post\" action=\"keyboard\\stratogem\">" +
+                "  <form style=\"margin-bottom: 0px;\" method=\"post\" action=\"button\\stratogem\">" +
                 "    <input type=\"hidden\" name=\"stratogem\" value=>" +
                 "    <input style=\"background-size: cover; ; width: 150px;height: 150px;background-color: aquamarine;\" type=\"submit\" value=\"\">" +
                 "  </form>" +
