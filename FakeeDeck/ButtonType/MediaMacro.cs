@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FakeeDeck.ButtonType
 {
-    internal class MediaMacro
+    internal class MediaMacro : Button
     {
         public static Dictionary<string, uint[]> mediaControls = new Dictionary<string, uint[]>
         {
@@ -22,15 +22,7 @@ namespace FakeeDeck.ButtonType
 
         public static string getButton(string Key)
         {
-            return
-                "<div class=\"m-2\">" +
-                "  <form style=\"margin-bottom: 0px;\" method=\"post\" action=\"button\\MediaMacro\">" +
-                "    <input type=\"hidden\" name=\"control_action\" value=\"" + Key + "\">" +
-                "    <button type=\"submit\" value=\"" + Key + "\" style=\"width: 150px;height: 150px;background-color: aquamarine;\" >" +
-                "      <i class=\"fa-solid "+ mediaIcons[Key] +"\"></i>" +
-                "    </button>" +
-                "  </form>" +
-                "</div>";
+            return getButtonHTML(mediaIcons[Key], null, Key, "button\\MediaMacro", new Dictionary<string, string>() { { "control_action", Key } });
         }
 
         public static bool invokeAction(string control_action)

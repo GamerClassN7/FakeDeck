@@ -49,13 +49,7 @@ namespace FakeeDeck.ButtonType
 
         public static string getButton(string Key)
         {
-            return
-                "<div class=\"m-2\">" +
-                "  <form style=\"margin-bottom: 0px;\" method=\"post\" action=\"button\\HelldiversTwoMacro\">" +
-                "    <input type=\"hidden\" name=\"stratogem\" value=\"" + Key + "\">" +
-                "    <input style=\"background-size: cover; background-image: url('" + stratogemsIcons[Key].ToString() + "'); width: 150px;height: 150px;background-color: aquamarine;\" type=\"submit\" value=\"" + FirstLetterToUpper(Key) + "\">" +
-                "  </form>" +
-                "</div>";
+            return getButtonHTML(null, stratogemsIcons[Key].ToString(), Key, "button\\HelldiversTwoMacro", new Dictionary<string, string>() { { "stratogem", Key } });
         }
 
         public static bool invokeAction(string stratogem)
