@@ -7,7 +7,7 @@ using static System.Net.WebRequestMethods;
 
 namespace FakeeDeck.ButtonType
 {
-    class HelldiversTwoMacro
+    class HelldiversTwoMacro : Button
     {
         //https://helldivers.wiki.gg/wiki/Stratagems
         //https://helldivers.fandom.com/wiki/Stratagems_(Helldivers_2)
@@ -51,19 +51,24 @@ namespace FakeeDeck.ButtonType
         {
             return
                 "<div class=\"m-2\">" +
-                "  <form style=\"margin-bottom: 0px;\" method=\"post\" action=\"keyboard\\stratogem\">" +
+                "  <form style=\"margin-bottom: 0px;\" method=\"post\" action=\"button\\HelldiversTwoMacro\">" +
                 "    <input type=\"hidden\" name=\"stratogem\" value=\"" + Key + "\">" +
-                "    <input style=\"background-image: url('" + stratogemsIcons[Key].ToString() + "'); width: 200px;height: 200px;background-color: aquamarine;\" type=\"submit\" value=\"" + FirstLetterToUpper(Key) + "\">" +
+                "    <input style=\"background-size: cover; background-image: url('" + stratogemsIcons[Key].ToString() + "'); width: 150px;height: 150px;background-color: aquamarine;\" type=\"submit\" value=\"" + FirstLetterToUpper(Key) + "\">" +
                 "  </form>" +
                 "</div>";
         }
 
-        public static bool invokeAction(string Key)
+        public static bool invokeAction(string stratogem)
         {
-            return false;
+            foreach (var key in stratogems[stratogem])
+            {
+                KeyboardMacro.SendKey(key);
+                Console.WriteLine(key);
+            }
+            return true;
         }
 
-        public static string FirstLetterToUpper(string str)
+        private static string FirstLetterToUpper(string str)
         {
             if (str == null)
                 return null;
