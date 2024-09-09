@@ -15,7 +15,7 @@ namespace FakeeDeck.ButtonType
 
         public static Dictionary<string, uint[]> stratogems = new Dictionary<string, uint[]>
         {
-            { "reinforce", new uint[] { KeyboardCode.NUMPAD5, 0x68, 0x62, 0x66, 0x64, 0x68}},
+            { "reinforce", new uint[] { 0x65, 0x68, 0x62, 0x66, 0x64, 0x68}},
             { "resupply", new uint[] { 0x65, 0x62, 0x62, 0x68, 0x66 }},
             //Patriotic Administration Center
             { "anti-material", new uint[] { 0x65, 0x62, 0x64, 0x66, 0x68, 0x62}},
