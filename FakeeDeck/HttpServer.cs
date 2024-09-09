@@ -141,80 +141,23 @@ namespace FakeeDeck
                 Console.WriteLine(req.UserAgent);
                 Console.WriteLine();
 
-                //Parse Port Parameters
-                Dictionary<string, string> postParams = new Dictionary<string, string>();
                 if (req.HttpMethod == "POST")
                 {
-                    using (var reader = new StreamReader(req.InputStream, req.ContentEncoding))
+                    //Parse Port Parameters
+                    Dictionary<string, string> postParams = parsePostRequestParameters(req);
+                    // If `shutdown` url requested w/ POST, then shutdown the server after serving the page
+                    if (req.Url.AbsolutePath == "/shutdown")
                     {
-                        string postData = reader.ReadToEnd();
-                        var parsedData = HttpUtility.ParseQueryString(postData);
-                        foreach (string key in parsedData)
-                        {
-                            postParams[key] = parsedData[key];
-                        }
+                        Console.WriteLine("Shutdown requested");
+                        runServer = false;
                     }
-                }
-
-                // If `shutdown` url requested w/ POST, then shutdown the server after serving the page
-                if ((req.HttpMethod == "POST") && (req.Url.AbsolutePath == "/shutdown"))
-                {
-                    Console.WriteLine("Shutdown requested");
-                    runServer = false;
-                }
-
-                // If `shutdown` url requested w/ POST, then shutdown the server after serving the page
-                if ((req.HttpMethod == "POST") && (req.Url.AbsolutePath.StartsWith("/button")))
-                {
-                    try
-                    {
-                        string module = req.Url.AbsolutePath.Replace("/button", "");
-                        Console.WriteLine("Call module " + module);
-
-                        callButtonAction(module, postParams);
-
-                        resp.StatusCode = (int)HttpStatusCode.OK;
-                    }
-                    catch (Exception ex)
-                    {
-                        byte[] errorData = Encoding.UTF8.GetBytes(ex.Message);
-                        resp.ContentType = "text/html";
-                        resp.ContentEncoding = Encoding.UTF8;
-                        resp.ContentLength64 = errorData.LongLength;
-                        resp.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        await resp.OutputStream.WriteAsync(errorData, 0, errorData.Length);
-                    }
-                    finally
-                    {
-                        resp.Close();
-                    }
-                    continue;
-                }
-
-                if (req.Url.AbsolutePath.Contains("."))
-                {
-                    string filename = Path.Combine("./", req.Url.AbsolutePath.Substring(1));
-                    if (File.Exists(filename))
+                    else if (req.Url.AbsolutePath.StartsWith("/button"))
                     {
                         try
                         {
-                            Stream input = new FileStream(filename, FileMode.Open);
-
-                            string mime;
-                            resp.ContentType = mimeTypes.TryGetValue(Path.GetExtension(filename), out mime)
-                                ? mime
-                                : "application/octet-stream";
-                            resp.ContentLength64 = input.Length;
-                            resp.AddHeader("Date", DateTime.Now.ToString("r"));
-                            resp.AddHeader("Last-Modified", File.GetLastWriteTime(filename).ToString("r"));
-
-                            byte[] buffer = new byte[1024 * 32];
-                            int nbytes;
-                            while ((nbytes = input.Read(buffer, 0, buffer.Length)) > 0)
-                                resp.OutputStream.Write(buffer, 0, nbytes);
-                            input.Close();
-                            resp.OutputStream.Flush();
-
+                            string module = req.Url.AbsolutePath.Replace("/button", "");
+                            Console.WriteLine("Call module " + module);
+                            callButtonAction(module, postParams);
                             resp.StatusCode = (int)HttpStatusCode.OK;
                         }
                         catch (Exception ex)
@@ -233,26 +176,19 @@ namespace FakeeDeck
                         continue;
                     }
                 }
-
-
-                // Make sure we don't increment the page views counter if `favicon.ico` is requested
-                if (req.Url.AbsolutePath != "/favicon.ico")
+                else if (req.HttpMethod == "GET")
                 {
-                    pageViews += 1;
+                    if (req.Url.AbsolutePath.Contains("."))
+                    {
+                        await servFileResponseAsync(req, resp);
+                    }
+                    else
+                    {
+                        await servViewResponseAsync(req, resp);
+                    }
+                    resp.Close();
+                    continue;
                 }
-
-
-
-                // Write the response info
-                string disableSubmit = !runServer ? "disabled" : "";
-                byte[] data = Encoding.UTF8.GetBytes(String.Format((pageHeader + pageData + pageFooter), pageViews, disableSubmit));
-                resp.ContentType = "text/html";
-                resp.ContentEncoding = Encoding.UTF8;
-                resp.ContentLength64 = data.LongLength;
-
-                // Write out to the response stream (asynchronously), then close it
-                await resp.OutputStream.WriteAsync(data, 0, data.Length);
-                resp.Close();
             }
         }
 
@@ -282,16 +218,23 @@ namespace FakeeDeck
             listener.Close();
         }
 
-        private static void callButtonAction(string module, Dictionary<string, string>  postParams)
+        private static void callButtonAction(string module, Dictionary<string, string> postParams)
         {
-            string cleanClass = module.Trim('/');
+            string cleanClass = "FakeeDeck.ButtonType." + module.Trim('/');
 
-            Type buttonClass = Type.GetType("FakeeDeck.ButtonType." + cleanClass, true);
-            MethodInfo method = buttonClass.GetMethod("invokeAction");
-            
+            Type? buttonClass = Type.GetType(cleanClass, true);
+
+            if (buttonClass is null)
+                return;
+
+            MethodInfo? method = buttonClass.GetMethod("invokeAction");
+
+            if (method is null)
+                return;
+
             ParameterInfo[] pars = method.GetParameters();
             List<object> parameters = new List<object>();
-            Console.WriteLine(module);
+
             foreach (ParameterInfo p in pars)
             {
                 if (p == null)
@@ -299,24 +242,85 @@ namespace FakeeDeck
                     continue;
                 }
 
-                Console.WriteLine(p.Name);
-                Console.WriteLine(postParams[p.Name]);
-
                 if (p.Name != null && postParams.ContainsKey(p.Name))
                 {
-
                     parameters.Insert(p.Position, postParams[p.Name]);
-                    Console.WriteLine(postParams[p.Name]);
                 }
                 else if (p.IsOptional && p.DefaultValue != null)
                 {
                     parameters.Insert(p.Position, p.DefaultValue);
                 }
             }
-            Console.WriteLine(JsonSerializer.Serialize(parameters));
 
-            Console.WriteLine(method);
-            Console.WriteLine(method.Invoke(null, parameters.ToArray()).ToString());
+            _ = method.Invoke(null, [.. parameters]).ToString();
+        }
+
+        private static async Task servFileResponseAsync(HttpListenerRequest req, HttpListenerResponse resp)
+        {
+            string filename = Path.Combine("./", req.Url.AbsolutePath.Substring(1));
+            if (!File.Exists(filename))
+            {
+                resp.StatusCode = (int)HttpStatusCode.NotFound;
+                resp.Close();
+            }
+
+            try
+            {
+                Stream input = new FileStream(filename, FileMode.Open);
+
+                string mime;
+                resp.ContentType = mimeTypes.TryGetValue(Path.GetExtension(filename), out mime)
+                    ? mime
+                    : "application/octet-stream";
+                resp.ContentLength64 = input.Length;
+                resp.AddHeader("Date", DateTime.Now.ToString("r"));
+                resp.AddHeader("Last-Modified", File.GetLastWriteTime(filename).ToString("r"));
+
+                byte[] buffer = new byte[1024 * 32];
+                int nbytes;
+                while ((nbytes = input.Read(buffer, 0, buffer.Length)) > 0)
+                    resp.OutputStream.Write(buffer, 0, nbytes);
+                input.Close();
+                resp.OutputStream.Flush();
+
+                resp.StatusCode = (int)HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                byte[] errorData = Encoding.UTF8.GetBytes(ex.Message);
+                resp.ContentType = "text/html";
+                resp.ContentEncoding = Encoding.UTF8;
+                resp.ContentLength64 = errorData.LongLength;
+                resp.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await resp.OutputStream.WriteAsync(errorData, 0, errorData.Length);
+            }
+        }
+
+        private static async Task servViewResponseAsync(HttpListenerRequest req, HttpListenerResponse resp)
+        {
+            string disableSubmit = false ? "disabled" : "";
+            byte[] data = Encoding.UTF8.GetBytes(String.Format((pageHeader + pageData + pageFooter), pageViews, disableSubmit));
+            resp.ContentType = "text/html";
+            resp.ContentEncoding = Encoding.UTF8;
+            resp.ContentLength64 = data.LongLength;
+            await resp.OutputStream.WriteAsync(data, 0, data.Length);
+        }
+
+        private static Dictionary<string, string> parsePostRequestParameters(HttpListenerRequest req)
+        {
+            Dictionary<string, string> postParams = new Dictionary<string, string>();
+
+            using (var reader = new StreamReader(req.InputStream, req.ContentEncoding))
+            {
+                string postData = reader.ReadToEnd();
+                var parsedData = HttpUtility.ParseQueryString(postData);
+                foreach (string key in parsedData)
+                {
+                    postParams[key] = parsedData[key];
+                }
+            }
+
+            return postParams;
         }
     }
 }

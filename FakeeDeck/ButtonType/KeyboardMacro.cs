@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace FakeeDeck.ButtonType
 {
-
     internal class KeyboardMacro
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
