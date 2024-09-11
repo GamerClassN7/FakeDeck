@@ -18,7 +18,7 @@ using System.Xml.Linq;
 using System.Reflection;
 using System.Text.Json;
 
-namespace FakeeDeck
+namespace FakeeDeck.Class
 {
     internal class HttpServer
     {
@@ -117,9 +117,9 @@ namespace FakeeDeck
             "    <script src=\"StaticFiles/app.js\"></script>" +
             "  </body>" +
             "</html>";
-        public static string pageData = "";
+        public string pageData = "";
 
-        public static async Task HandleIncomingConnections()
+        public async Task HandleIncomingConnections()
         {
             bool runServer = true;
 
@@ -192,18 +192,8 @@ namespace FakeeDeck
             }
         }
 
-        public static void serv()
+        public void serv()
         {
-            foreach (var stratogem in HelldiversTwoMacro.stratogems)
-            {
-                pageData += HelldiversTwoMacro.getButton(stratogem.Key);
-            }
-
-            foreach (var control in MediaMacro.mediaControls)
-            {
-                pageData += MediaMacro.getButton(control.Key);
-            }
-
             // Create a Http server and start listening for incoming connections
             listener = new HttpListener();
             listener.Prefixes.Add(url);
@@ -282,7 +272,6 @@ namespace FakeeDeck
                     resp.OutputStream.Write(buffer, 0, nbytes);
                 input.Close();
                 resp.OutputStream.Flush();
-
                 resp.StatusCode = (int)HttpStatusCode.OK;
             }
             catch (Exception ex)
@@ -296,10 +285,10 @@ namespace FakeeDeck
             }
         }
 
-        private static async Task servViewResponseAsync(HttpListenerRequest req, HttpListenerResponse resp)
+        private async Task servViewResponseAsync(HttpListenerRequest req, HttpListenerResponse resp)
         {
             string disableSubmit = false ? "disabled" : "";
-            byte[] data = Encoding.UTF8.GetBytes(String.Format((pageHeader + pageData + pageFooter), pageViews, disableSubmit));
+            byte[] data = Encoding.UTF8.GetBytes(string.Format(pageHeader + this.pageData + pageFooter, pageViews, disableSubmit));
             resp.ContentType = "text/html";
             resp.ContentEncoding = Encoding.UTF8;
             resp.ContentLength64 = data.LongLength;
