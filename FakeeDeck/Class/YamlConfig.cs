@@ -38,30 +38,34 @@ namespace FakeeDeck.Class
                         continue;
                     }
 
-                    Console.WriteLine(level + "> level " + linesParsedPreviuse + " Lines handeled previouselly '" + line + "'");
-
-                    if ((level > levelStart || level == 0))
+                    Console.WriteLine(level + ">"+ levelStart + " level " + linesParsedPreviuse + " Lines handeled previouselly '" + line + "'");
+                    if ((level > levelStart || levelStart == 0))
                     {
                         if (line.Contains(":"))
                         {
+                            Console.WriteLine("Key:Value Pair");
                             iterator = 0;
                             string[] array = line.Split(":");
-                            string key = array[0];
+                            string key = array[0].Trim('\t');
                             dynamic value = "";
 
-                            if (array.Length > 0)
+                            if (array.Length > 1 && !string.IsNullOrEmpty(array[1]))
                             {
-                                tempObject[key] = array[1];
+                                Console.WriteLine("Strict Value Found: " + array[1]);
+                                tempObject.Add(key,array[1]);
                             }
-                            else if (array.Length == 1 && lines[linesParsed..lines.Length].Length > 0)
+                            else if (array.Length == 2 && string.IsNullOrEmpty(array[1]) && lines[linesParsed..lines.Length].Length > 0)
                             {
-                                tempObject[key] = ParseYamlFile(lines[linesParsed..lines.Length], level, linesParsed);
+                                tempObject.Add(key, ParseYamlFile(lines[linesParsed..lines.Length], level, linesParsed));
                             }
                         } else
                         {
                             iterator++;
-                            tempObject[iterator] = line;
+                            tempObject.Add(iterator,line);
                         }
+                    } else if (level < levelStart)
+                    {
+                        Console.WriteLine("Level DOwns");
                     }
                 }
             }

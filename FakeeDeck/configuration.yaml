@@ -1,26 +1,30 @@
+
 server:
-	port: 8000
+  port: 8000
 
 pages:
-	- helldivers:
-		- test1:
-			name: test
-			type: keyboard
-			url: https://www.reddit.com/r/kde/comments/fen7lj/plasmoid_for_managing_docker_containers/
-			action:
-				- 0x31
-				- 0x31
-		- test2:
-			name: test2
-			type: keyboard
-			url: https://www.reddit.com/
-			action:
-				- 0x31
-				- 0x31
-	- media:
-		- mute:
-			name: mute
-			type: keyboard
-			url: https://www.reddit.com/r/kde/comments/fen7lj/plasmoid_for_managing_docker_containers/
-			action:
-				- 0x33
+  - page: helldivers,
+    buttons: 
+      - button: b_1,
+        name: test,
+        type: keyboard,
+        url: https://www.reddit.com/r/kde/comments/fen7lj/plasmoid_for_managing_docker_containers/,
+        action: 
+          - 0x31
+          - 0x31
+      - button: b_2,
+        name: test,
+        type: keyboard,
+        url: https://www.reddit.com/r/kde/comments/fen7lj/plasmoid_for_managing_docker_containers/,
+        action: 
+          - 0x31
+          - 0x31
+  - page: media,
+    buttons: 
+      - button: b_1,
+        name: test,
+        type: keyboard,
+        url: https://www.reddit.com/,
+        action: 
+          - 0x31
+          - 0x31
