@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FakeeDeck.Class
 {
-    internal class Keyboard
+    internal class KeyboardCode
     {
         public const uint LBUTTON = 0x01; // Left mouse button
         public const uint RBUTTON = 0x02; // Right mouse button

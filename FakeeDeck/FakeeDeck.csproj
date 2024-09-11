@@ -12,6 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="configuration.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="StaticFiles\app.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
