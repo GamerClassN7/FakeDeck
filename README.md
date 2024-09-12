@@ -1,9 +1,8 @@
-## FakeDeck - Poor Man Macro Pad
-
 <div align="center">
     <img src="images/logo.png" title="Logo">
 </div>
 
+## FakeDeck - Poor Man Macro Pad
 Creates simple webserver with buttons whitch can be opened on any device an can be used as macro pad/keyboard
 
 ![alt text](images/image.png)
