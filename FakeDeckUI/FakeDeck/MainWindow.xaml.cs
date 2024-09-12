@@ -16,6 +16,7 @@ using static QRCoder.QRCodeGenerator;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Drawing;
 using Color = System.Drawing.Color;
+using AutoUpdaterDotNET;
 
 namespace FakeDeck
 {
@@ -39,7 +40,7 @@ namespace FakeDeck
             QRCodeData qrCodeData = qrCodeGenerator.CreateQrCode(qrCodePayload.ToString(), 0);
             QRCode qrCode = new QRCode(qrCodeData);
             qr_code.Source = GeneralHelper.BitmapToImageSource(qrCode.GetGraphic(20, Color.Black, Color.White, false));
-            
+
             AutoUpdateHelper updater = new AutoUpdateHelper();
         }
     }

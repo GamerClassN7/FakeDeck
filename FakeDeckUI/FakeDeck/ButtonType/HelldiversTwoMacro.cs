@@ -1,6 +1,7 @@
 ﻿using FakeeDeck.Class;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,7 +84,7 @@ namespace FakeeDeck.ButtonType
             foreach (var key in stratogems[stratogem])
             {
                 KeyboardMacro.SendKey(key);
-                Console.WriteLine(key);
+                Debug.WriteLine(key);
             }
             return true;
         }
