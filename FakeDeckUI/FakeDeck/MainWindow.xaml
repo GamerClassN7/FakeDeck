@@ -7,6 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="270" Activated="FakeDeckUI_Activated" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Image x:Name="qr_code" Margin="10,10,10,174"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="270*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="qr_code" Margin="10,10,10,10"/>
+        <TextBox Margin="10,10,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Row="1"/>
     </Grid>
 </Window>

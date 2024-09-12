@@ -22,7 +22,7 @@ namespace FakeeDeck.Class
             AutoUpdater.ShowRemindLaterButton = false;
             AutoUpdater.ReportErrors = Debugger.IsAttached;
             AutoUpdater.HttpUserAgent = ("FakeDeck-v" + Assembly.GetExecutingAssembly().GetName().Version);
-            AutoUpdater.Start("https://api.github.com/repos/ravibpatel/AutoUpdater.NET/releases/latest");
+            AutoUpdater.Start("https://api.github.com/repos/GamerClassN7/FakeDeck/releases/latest");
         }
         private void AutoUpdaterOnParseUpdateInfoEvent(ParseUpdateInfoEventArgs args)
         {
