@@ -1,0 +1,60 @@
+
+server:
+  port: 8000
+
+pages:
+  - page: helldivers
+    buttons: 
+      - button: reinforce
+        function: HelldiversTwoMacro
+        parameters:
+          - name: Key
+            value: "reinforce"
+
+      - button: strafing-run
+        function: HelldiversTwoMacro
+        parameters:
+          - name: Key
+            value: strafing-run
+
+      - button: airstrike
+        function: HelldiversTwoMacro
+        parameters:
+          - name: Key
+            value: airstrike
+      
+      - button: cluster-bomb
+        function: HelldiversTwoMacro
+        parameters:
+          - name: Key
+            value: cluster-bomb
+      
+      - button: napalm-airstrike
+        function: HelldiversTwoMacro
+        parameters:
+          - name: Key
+            value: napalm-airstrike
+        
+      - button: smoke-strike
+        function: HelldiversTwoMacro
+        parameters:
+          - name: Key
+            value: smoke-strike
+        
+      - button: rocket-pods
+        function: HelldiversTwoMacro
+        parameters:
+          - name: Key
+            value: rocket-pods
+        
+      - button: bomb
+        function: HelldiversTwoMacro
+        parameters:
+          - name: Key
+            value: bomb
+
+      - button: mute
+        function: MediaMacro
+        parameters:
+          - name: Key
+            value: "mute"
