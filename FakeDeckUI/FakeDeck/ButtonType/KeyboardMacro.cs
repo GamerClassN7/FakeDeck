@@ -9,6 +9,8 @@ namespace FakeeDeck.ButtonType
 {
     internal class KeyboardMacro
     {
+        //https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern void keybd_event(uint bVk, uint bScan, uint dwFlags, uint dwExtraInfo);
 

@@ -12,12 +12,17 @@ namespace FakeeDeck.ButtonType
         {
             { "play/pause", new uint[] { 0xB3}},
             { "mute", new uint[] { 0xAD }},
+            { "next", new uint[] { 0xB0 }},
+            { "previous", new uint[] { 0xB1 }},
+
         };
 
         public static Dictionary<string, string> mediaIcons = new Dictionary<string, string>
         {
             { "play/pause", "fa-play"},
             { "mute", "fa-volume-xmark"},
+            { "next", "fa-forward"},
+            { "previous", "fa-backward"},
         };
 
         public static string getButton(string Key)
