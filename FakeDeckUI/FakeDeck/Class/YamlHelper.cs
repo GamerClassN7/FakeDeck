@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -8,7 +9,7 @@ using YamlDotNet.Serialization;
 
 namespace FakeeDeck.Class
 {
-    internal class YamlHelper
+    public  class YamlHelper
     {
         JsonDocument jsonObjecz;
         public YamlHelper()

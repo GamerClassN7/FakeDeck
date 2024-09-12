@@ -58,3 +58,21 @@ pages:
         parameters:
           - name: Key
             value: "mute"
+
+      - button: mute
+        function: MediaMacro
+        parameters:
+          - name: Key
+            value: "previous"
+
+      - button: mute
+        function: MediaMacro
+        parameters:
+          - name: Key
+            value: "play/pause"
+
+      - button: mute
+        function: MediaMacro
+        parameters:
+          - name: Key
+            value: "next"
