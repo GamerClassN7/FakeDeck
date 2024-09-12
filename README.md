@@ -1,10 +1,9 @@
 <div align="center">
-    <img src="images/logo.png" title="Logo">
+    <img style="border-radius:10px" src="images/logo.png" title="Logo"><br>
+    <img src="https://img.shields.io/github/downloads/GamerClassN7/FakeDeck/total.svg" alt="Github All Releases">
 </div>
 
 # FakeDeck - Poor Man Macro Pad
-
-[![Github All Releases](https://img.shields.io/github/downloads/GamerClassN7/FakeDeck/total.svg)]()
 
 Creates simple webserver with buttons whitch can be opened on any device an can be used as macro pad/keyboard
 
