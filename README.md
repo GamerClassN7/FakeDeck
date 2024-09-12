@@ -8,7 +8,7 @@ Creates simple webserver with buttons whitch can be opened on any device an can 
 Just add desired macros to `configuration.yaml` and start the application, tahn zou can load dashboard on any web capable device inside of your network.
 
 ### Example Macros:
-
+#### Helldivers 2 Macros
 ```yaml
 - button: reinforce
   function: HelldiversTwoMacro
@@ -65,10 +65,32 @@ Just add desired macros to `configuration.yaml` and start the application, tahn 
     - name: Key
       value: bomb
 ```
+#### Media Control Macros
 ```yaml
 - button: mute
   function: MediaMacro
   parameters:
     - name: Key
       value: "mute"
+```
+```yaml
+- button: previous
+  function: MediaMacro
+  parameters:
+    - name: Key
+      value: "previous"
+```
+```yaml
+- button: play
+  function: MediaMacro
+  parameters:
+    - name: Key
+      value: "play/pause"
+```
+```yaml
+- button: next
+  function: MediaMacro
+  parameters:
+    - name: Key
+      value: "next"
 ```
