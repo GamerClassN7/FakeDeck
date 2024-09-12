@@ -17,6 +17,7 @@ using System.Reflection.Metadata;
 using System.Xml.Linq;
 using System.Reflection;
 using System.Text.Json;
+using System.Collections;
 
 namespace FakeeDeck.Class
 {
@@ -118,7 +119,7 @@ namespace FakeeDeck.Class
             "  </body>" +
             "</html>";
         public string pageData = "";
-
+        private Dictionary<string, Dictionary<string, Action>> routes;
         public async Task HandleIncomingConnections()
         {
             bool runServer = true;
