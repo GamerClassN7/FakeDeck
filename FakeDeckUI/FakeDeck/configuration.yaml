@@ -52,7 +52,62 @@ pages:
         parameters:
           - name: Key
             value: bomb
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: orange
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "full-screen"
+          - name: Color
+            value: orange
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
 
+      - button: page
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "set-page"
+          - name: PageId
+            value: "media"
+          - name: Image
+            value: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEjIsQcn8NwYWhwISL74xXLGtRHeW1Mn67g&s"
+
+
+  - page: media
+    buttons: 
       - button: mute
         function: MediaMacro
         parameters:
@@ -76,3 +131,52 @@ pages:
         parameters:
           - name: Key
             value: "next"
+      
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "full-screen"
+          - name: Color
+            value: orange
+      
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+      - button: page
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "set-page"
+          - name: PageId
+            value: "helldivers"
+          - name: Image
+            value: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2oyk6yqmBxt9ejwqBaordr6X9s-dZFnHrvg&s"

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FakeeDeck.ButtonType
+namespace FakeDeck.ButtonType
 {
     internal class MediaMacro : Button
     {
@@ -27,7 +27,7 @@ namespace FakeeDeck.ButtonType
 
         public static string getButton(string Key)
         {
-            return getButtonHTML(mediaIcons[Key], null, Key, "button\\MediaMacro", new Dictionary<string, string>() { { "control_action", Key } });
+            return getButtonHTML(mediaIcons[Key], null, Key, "button\\MediaMacro", null, new Dictionary<string, string>() { { "control_action", Key } });
         }
 
         public static bool invokeAction(string control_action)

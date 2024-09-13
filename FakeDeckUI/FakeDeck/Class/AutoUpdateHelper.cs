@@ -12,7 +12,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace FakeeDeck.Class
+namespace FakeDeck.Class
 {
     public class AutoUpdateHelper
     {

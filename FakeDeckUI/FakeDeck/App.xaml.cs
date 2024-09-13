@@ -1,4 +1,4 @@
-﻿using FakeeDeck.Class;
+﻿using FakeDeck.Class;
 using Microsoft.VisualBasic.Logging;
 using System.Configuration;
 using System.Data;

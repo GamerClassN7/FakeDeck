@@ -1,5 +1,5 @@
 ﻿using FakeDeck.Class;
-using FakeeDeck.Class;
+using FakeDeck.Class;
 using QRCoder;
 using System.Reflection.Emit;
 using System.Text;

@@ -1,71 +1,66 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.Json;
+using System.Windows;
+using static System.Text.Json.JsonElement;
 
-namespace FakeeDeck.Class
+namespace FakeDeck.Class
 {
     internal class FakeDeckMain
     {
+        private static string cachePath = "./cache/";
         public static string pageHeader =
     "<!DOCTYPE>" +
-    "<html>" +
+    "<html lang=\"en\">" +
     "  <head>" +
     "    <title>HttpListener Example</title>" +
+    "    <meta charset=\"utf-8\">" +
+    "    <meta name = \"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=yes\">" +
     "    <link href=\"https://yarnpkg.com/en/package/normalize.css\" rel=\"stylesheet\">" +
     "    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\">" +
     "    <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css\" rel=\"stylesheet\">" +
+    "    <link href=\"StaticFiles/style.css\" rel=\"stylesheet\">" +
     "  </head>" +
     "  <body>" +
-    "    <div class=\"d-flex flex-wrap\">" +
-    "      <div class=\"m-2\">" +
-    "        <p style=\"margin-bottom: 0px; width: 150px;height: 150px;background-color: aquamarine;\" >Page Views: {0}</p>" +
-    "      </div>";
+    "    <div id=\"main\" class=\"d-flex flex-wrap\" style=\"transform-origin: left top;\">";
         public static string pageFooter =
-            "      <div class=\"m-2\">" +
-            "        <button style=\"width: 150px;height: 150px;background-color: aquamarine;\" onclick=\"!document.fullscreenElement ? document.documentElement.requestFullscreen() :  document.exitFullscreen();\">" +
-            "          <i class=\"fa-solid fa-maximize\"></i>" +
-            "        </button>" +
-            "      </div>" +
             "    </div>" +
             "    <script src=\"StaticFiles/app.js\"></script>" +
             "  </body>" +
             "</html>";
         public string pageData = "";
+        private ArrayEnumerator pages;
         public FakeDeckMain(YamlHelper yaml)
         {
-            HttpServer server = new HttpServer(yaml.getData().GetProperty("server").GetProperty("port").ToString());
 
-            foreach (JsonElement item in yaml.getData().GetProperty("pages").EnumerateArray())
+            HttpServer server = new HttpServer(yaml.getData().GetProperty("server").GetProperty("port").ToString());
+            pages = yaml.getData().GetProperty("pages").EnumerateArray();
+
+            //ClearCache
+            if (Directory.Exists(cachePath))
             {
-                Debug.WriteLine("PAGE: " + item.GetProperty("page"));
-                foreach (JsonElement button in item.GetProperty("buttons").EnumerateArray())
+                DirectoryInfo di = new DirectoryInfo(cachePath);
+                foreach (FileInfo file in di.EnumerateFiles())
                 {
-                    pageData += AbstractionHelper.getButtonVisual(button);
+                    file.Delete();
                 }
             }
 
+            pageData = renderPageView();
+
             server.addRoute(servViewResponseAsync, "GET", "/");
             server.addRoute(servButtonResponseAsync, "POST", "/button/");
-
-            /*foreach (var stratogem in HelldiversTwoMacro.stratogems)
-            {
-                server.pageData += HelldiversTwoMacro.getButton(stratogem.Key);
-            }
-
-            foreach (var control in MediaMacro.mediaControls)
-            {
-                server.pageData += MediaMacro.getButton(control.Key);
-            }*/
-
+            server.addRoute(servPageResponseAsync, "POST", "/page");
             server.serv();
         }
 
         private static void callButtonAction(string module, Dictionary<string, string> postParams)
         {
-            string cleanClass = "FakeeDeck.ButtonType." + module.Trim('/');
+            string cleanClass = "FakeDeck.ButtonType." + module.Trim('/');
 
             Type? buttonClass = Type.GetType(cleanClass, true);
 
@@ -115,9 +110,10 @@ namespace FakeeDeck.Class
             try
             {
                 string module = req.Url.AbsolutePath.Replace("/button", "");
-                Console.WriteLine("Call module " + module);
+                Debug.WriteLine("Call module " + module);
                 callButtonAction(module, postParams);
                 resp.StatusCode = (int)HttpStatusCode.OK;
+                await resp.OutputStream.FlushAsync();
             }
             catch (Exception ex)
             {
@@ -128,6 +124,51 @@ namespace FakeeDeck.Class
                 resp.StatusCode = (int)HttpStatusCode.InternalServerError;
                 await resp.OutputStream.WriteAsync(errorData, 0, errorData.Length);
             }
+        }
+
+        private async Task servPageResponseAsync(HttpListenerRequest req, HttpListenerResponse resp, Dictionary<string, string> postParams)
+        {
+            string pageContent = "";
+            try
+            {
+                pageContent = renderPageView(postParams["Key"]);
+                resp.StatusCode = (int)HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                pageContent = ex.Message;
+                resp.StatusCode = (int)HttpStatusCode.InternalServerError;
+            }
+
+            byte[] errorData = Encoding.UTF8.GetBytes(pageContent);
+            resp.ContentType = "text/html";
+            resp.ContentEncoding = Encoding.UTF8;
+            resp.ContentLength64 = errorData.LongLength;
+            await resp.OutputStream.WriteAsync(errorData, 0, errorData.Length);
+        }
+
+        private string renderPageView(string page = null)
+        {
+            JsonElement selectedPage = pages.First();
+
+            if (page != null)
+                selectedPage = pages.SingleOrDefault(item => item.GetProperty("page").ToString() == page);
+
+            string SelectedPageName = selectedPage.GetProperty("page").ToString();
+            if (File.Exists(cachePath + SelectedPageName + ".html"))
+                return File.ReadAllText(cachePath + SelectedPageName + ".html");
+
+            string pageContent = "";
+            foreach (JsonElement button in selectedPage.GetProperty("buttons").EnumerateArray())
+            {
+                pageContent += AbstractionHelper.getButtonVisual(button);
+            }
+
+            if (Directory.Exists(cachePath))
+                Directory.CreateDirectory(cachePath);
+
+            File.WriteAllText(cachePath + SelectedPageName + ".html", pageContent);
+            return pageContent;
         }
     }
 }
