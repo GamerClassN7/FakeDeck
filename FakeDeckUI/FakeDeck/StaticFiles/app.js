@@ -13,8 +13,8 @@ function urlencodeFormData(fd){
 function resizeGrid(){
     var width = document.body.clientWidth;
     var height = document.body.clientHeight;
-    var biggerSizeW = (width / 5);
-    var biggerSizeH = (height / 3);
+    var biggerSizeW = (width / 7);
+    var biggerSizeH = (height / 5);
 
     var biggerSize = biggerSizeW;
     if(biggerSizeW < biggerSizeH){
