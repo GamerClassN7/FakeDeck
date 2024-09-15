@@ -17,6 +17,7 @@ using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Drawing;
 using Color = System.Drawing.Color;
 using AutoUpdaterDotNET;
+using System.Diagnostics;
 
 namespace FakeDeck
 {
@@ -32,6 +33,7 @@ namespace FakeDeck
 
         private void FakeDeckUI_Activated(object sender, EventArgs e)
         {
+
             string port = ((App)Application.Current).yaml.getData().GetProperty("server").GetProperty("port").ToString();
             string url = "http://localhost:" + port;
 
@@ -41,7 +43,14 @@ namespace FakeDeck
             QRCode qrCode = new QRCode(qrCodeData);
             qr_code.Source = GeneralHelper.BitmapToImageSource(qrCode.GetGraphic(20, Color.Black, Color.White, false));
 
-            AutoUpdateHelper updater = new AutoUpdateHelper();
+            try
+            {
+                AutoUpdateHelper updater = new AutoUpdateHelper();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
     }
 }
