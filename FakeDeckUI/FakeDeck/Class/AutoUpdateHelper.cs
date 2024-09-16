@@ -20,6 +20,7 @@ namespace FakeDeck.Class
             AutoUpdater.ParseUpdateInfoEvent += AutoUpdaterOnParseUpdateInfoEvent;
             AutoUpdater.Synchronous = true;
             AutoUpdater.ShowRemindLaterButton = false;
+            AutoUpdater.ClearAppDirectory = false;
             //AutoUpdater.ReportErrors = Debugger.IsAttached;
             AutoUpdater.HttpUserAgent = ("FakeDeck-v" + Assembly.GetExecutingAssembly().GetName().Version);
             AutoUpdater.Start("https://api.github.com/repos/GamerClassN7/FakeDeck/releases/latest");
