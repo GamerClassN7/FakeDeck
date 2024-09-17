@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -31,10 +32,16 @@ namespace FakeDeck.ButtonType
 
         public static bool invokeAction(string process, string arguments = "")
         {
-            if (!System.IO.File.ReadAllText("./configuration.yaml").Contains(process))
+            if (!File.ReadAllText("./configuration.yaml").Contains(process))
             {
                 Debug.WriteLine("not known process");
-                return true;
+                return false;
+            }
+
+            if (!File.ReadAllText("./configuration.yaml").Contains(arguments))
+            {
+                Debug.WriteLine("not known arguments");
+                return false;
             }
 
             Process notePad = new Process();
