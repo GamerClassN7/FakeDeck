@@ -10,6 +10,50 @@ pages:
         parameters:
           - name: Key
             value: "reinforce"
+        
+      - button: flamethrower
+        function: HelldiversTwoMacro
+        parameters:
+          - name: Key
+            value: "flamethrower"
+
+      - button: anti-material
+        function: HelldiversTwoMacro
+        parameters:
+          - name: Key
+            value: "anti-material"
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
 
       - button: strafing-run
         function: HelldiversTwoMacro
@@ -52,20 +96,23 @@ pages:
         parameters:
           - name: Key
             value: bomb
-      - button: spacer
-        function: FakeDeckMacro
-        parameters:
-          - name: Key
-            value: "spacer"
-          - name: Color
-            value: orange
-      - button: spacer
+
+      - button: full-screen
         function: FakeDeckMacro
         parameters:
           - name: Key
             value: "full-screen"
           - name: Color
             value: orange
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: orange
+
       - button: spacer
         function: FakeDeckMacro
         parameters:
@@ -73,6 +120,7 @@ pages:
             value: "spacer"
           - name: Color
             value: red
+
       - button: spacer
         function: FakeDeckMacro
         parameters:
@@ -80,6 +128,7 @@ pages:
             value: "spacer"
           - name: Color
             value: red
+
       - button: spacer
         function: FakeDeckMacro
         parameters:
@@ -87,13 +136,12 @@ pages:
             value: "spacer"
           - name: Color
             value: red
-      - button: spacer
-        function: FakeDeckMacro
+
+      - button: orbital-380-barrage
+        function: HelldiversTwoMacro
         parameters:
           - name: Key
-            value: "spacer"
-          - name: Color
-            value: red
+            value: orbital-380-barrage
 
       - button: page
         function: FakeDeckMacro

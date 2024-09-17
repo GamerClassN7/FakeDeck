@@ -33,6 +33,8 @@ namespace FakeDeck.ButtonType
 
             //Offensive: Orbital Strikes
             { "orbital-precision-strike", new uint[] { 0x65, Key_Right, Key_Right, Key_Up}},
+            { "orbital-380-barrage", new uint[] { 0x65, Key_Right, Key_Down, Key_Up, Key_Up, Key_Left, Key_Down, Key_Down}},
+
 
             //Defensive
             { "mortar-sentry", new uint[] { 0x65, Key_Down, Key_Up, Key_Right, Key_Down}},
@@ -61,6 +63,7 @@ namespace FakeDeck.ButtonType
             { "autocannon", "https://static.wikia.nocookie.net/helldivers_gamepedia/images/c/c6/AC-8_Autocannon_Icon.png"},
             { "grenade-launcher","https://static.wikia.nocookie.net/helldivers_gamepedia/images/6/66/GL-21_Grenade_Launcher_Icon.png"},
             { "orbital-precision-strike", "https://static.wikia.nocookie.net/helldivers_gamepedia/images/4/47/Orbital_Precision_Strike_Icon.png"},
+             { "orbital-380-barrage", "https://static.wikia.nocookie.net/helldivers_gamepedia/images/f/f4/Orbital_380MM_HE_Barrage_Icon.png"},
             { "mortar-sentry", "https://static.wikia.nocookie.net/helldivers_gamepedia/images/1/1d/A_M-12_Mortar_Sentry_Icon.png"},
             { "gatling-sentry","https://static.wikia.nocookie.net/helldivers_gamepedia/images/4/48/A_G-16_Gatling_Sentry_Icon.png"},
             
