@@ -156,6 +156,24 @@ pages:
 
   - page: media
     buttons: 
+      - button: notepad
+        function: ProcessMacro
+        parameters:
+          - name: process
+            value: "notepad.exe"
+          - name: image
+            value: "https://www.club386.com/wp-content/uploads/2021/12/notepad-icon-696x632.jpg"
+
+      - button: cmd
+        function: ProcessMacro
+        parameters:
+          - name: process
+            value: "cmd.exe"
+          - name: arguments
+            value: "/C ping google.com -t"
+          - name: image
+            value: "https://winaero.com/blog/wp-content/uploads/2019/06/WIndows-Terminal-icon.png"
+
       - button: mute
         function: MediaMacro
         parameters:

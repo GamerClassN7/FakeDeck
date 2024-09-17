@@ -14,19 +14,19 @@ namespace FakeDeck.Class
     {
         private static string cachePath = "./cache/";
         public static string pageHeader =
-    "<!DOCTYPE>" +
-    "<html lang=\"en\">" +
-    "  <head>" +
-    "    <title>HttpListener Example</title>" +
-    "    <meta charset=\"utf-8\">" +
-    "    <meta name = \"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=yes\">" +
-    "    <link href=\"https://yarnpkg.com/en/package/normalize.css\" rel=\"stylesheet\">" +
-    "    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\">" +
-    "    <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css\" rel=\"stylesheet\">" +
-    "    <link href=\"StaticFiles/style.css\" rel=\"stylesheet\">" +
-    "  </head>" +
-    "  <body>" +
-    "    <div id=\"main\" class=\"d-flex flex-wrap\" style=\"transform-origin: left top;\">";
+            "<!DOCTYPE>" +
+            "<html lang=\"en\">" +
+            "  <head>" +
+            "    <title>HttpListener Example</title>" +
+            "    <meta charset=\"utf-8\">" +
+            "    <meta name = \"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=yes\">" +
+            "    <link href=\"https://yarnpkg.com/en/package/normalize.css\" rel=\"stylesheet\">" +
+            "    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css\" rel=\"stylesheet\">" +
+            "    <link href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css\" rel=\"stylesheet\">" +
+            "    <link href=\"StaticFiles/style.css\" rel=\"stylesheet\">" +
+            "  </head>" +
+            "  <body>" +
+            "    <div id=\"main\" class=\"d-flex flex-wrap\" style=\"transform-origin: left top;\">";
         public static string pageFooter =
             "    </div>" +
             "    <script src=\"StaticFiles/app.js\"></script>" +
@@ -161,7 +161,13 @@ namespace FakeDeck.Class
             string pageContent = "";
             foreach (JsonElement button in selectedPage.GetProperty("buttons").EnumerateArray())
             {
-                pageContent += AbstractionHelper.getButtonVisual(button);
+                try
+                {
+                    pageContent += AbstractionHelper.getButtonVisual(button);
+                }
+                catch (Exception ex) {
+
+                }
             }
 
             if (Directory.Exists(cachePath))
