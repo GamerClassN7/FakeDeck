@@ -124,6 +124,16 @@ Just add desired macros to `configuration.yaml` and start the application, tahn 
     - name: Key
       value: spacer
 ```
+### Process Macro
+```yaml
+- button: cmd
+  function: ProcessMacro
+  parameters:
+    - name: process
+      value: "cmd.exe"
+    - name: arguments #Optional Proces Arguments
+      value: "-d C:/"
+```
 ### Comon Macro Parameters
 ```yaml
 ...
