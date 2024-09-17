@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 
-namespace FakeeDeck.Class
+namespace FakeDeck.Class
 {
     public  class YamlHelper
     {

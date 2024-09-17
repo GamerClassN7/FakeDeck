@@ -1,4 +1,4 @@
-﻿using FakeeDeck.Class;
+﻿using FakeDeck.Class;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
 
-namespace FakeeDeck.ButtonType
+namespace FakeDeck.ButtonType
 {
     class HelldiversTwoMacro : Button
     {
@@ -76,7 +76,7 @@ namespace FakeeDeck.ButtonType
 
         public static string getButton(string Key)
         {
-            return getButtonHTML(null, stratogemsIcons[Key].ToString(), Key, "button\\HelldiversTwoMacro", new Dictionary<string, string>() { { "stratogem", Key } });
+            return getButtonHTML(null, stratogemsIcons[Key].ToString(), Key, "button\\HelldiversTwoMacro", null, new Dictionary<string, string>() { { "stratogem", Key } });
         }
 
         public static bool invokeAction(string stratogem)

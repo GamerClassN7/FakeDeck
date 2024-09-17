@@ -12,7 +12,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace FakeeDeck.Class
+namespace FakeDeck.Class
 {
     public class AutoUpdateHelper
     {
@@ -20,7 +20,8 @@ namespace FakeeDeck.Class
             AutoUpdater.ParseUpdateInfoEvent += AutoUpdaterOnParseUpdateInfoEvent;
             AutoUpdater.Synchronous = true;
             AutoUpdater.ShowRemindLaterButton = false;
-            AutoUpdater.ReportErrors = Debugger.IsAttached;
+            AutoUpdater.ClearAppDirectory = false;
+            //AutoUpdater.ReportErrors = Debugger.IsAttached;
             AutoUpdater.HttpUserAgent = ("FakeDeck-v" + Assembly.GetExecutingAssembly().GetName().Version);
             AutoUpdater.Start("https://api.github.com/repos/GamerClassN7/FakeDeck/releases/latest");
         }

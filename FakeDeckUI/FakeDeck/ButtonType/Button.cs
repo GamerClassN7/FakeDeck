@@ -3,32 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
-namespace FakeeDeck.ButtonType
+namespace FakeDeck.ButtonType
 {
     internal class Button
     {
-        public static string getButtonHTML(string icon, string image, string name, string action, Dictionary<string, string> parameters = null)
+        public static string getButtonHTML(string icon, string image, string name, string action = null, string jsAction = null, Dictionary<string, string> parameters = null, string color = null)
         {
-
             string body = "";
+            string styles = "style=\"background-size: cover; " + (!string.IsNullOrEmpty(image) ? "background-image: url('" + image + "');" : "") + " width: 150px; height: 150px; " + (!string.IsNullOrEmpty(image) ? "background-image: url('" + image + "');" : "") + (!string.IsNullOrEmpty(color) ? " background-color: " + color + "; " : "") + "\"";
 
-            body += "<div class=\"m-2\">";
-            body += "<form style=\"margin-bottom: 0px;\" method=\"post\" action=\"" + action + "\">";
-
-            if (parameters is not null)
+            body += "<div>";
+            if (action != null)
             {
-                foreach (var parameter in parameters)
+                body += "<form style=\"margin-bottom: 0px;\" method=\"post\" action=\"" + action + "\">";
+
+                if (parameters is not null)
                 {
-                    body += "<input type=\"hidden\" name=\"" + parameter.Key + "\" value=\"" + parameter.Value + "\">";
+                    foreach (var parameter in parameters)
+                    {
+                        body += "<input type=\"hidden\" name=\"" + parameter.Key + "\" value=\"" + parameter.Value + "\">";
+                    }
                 }
+
+                body += "<button class=\"button\" type=\"submit\" value=\"submit\" " + styles + ">";
+                body += (!string.IsNullOrEmpty(icon) ? "<i class=\"fa-solid " + icon + "\"></i>" : name);
+                body += "</button>";
+                body += "</form>";
             }
-
-            body += "<button type=\"submit\" value=\"submit\" style=\"background-size: cover; " + (!string.IsNullOrEmpty(image) ? "background-image: url('" + image + "');" : "") + " width: 150px;height: 150px; background-color: aquamarine;\" >";
-            body += (!string.IsNullOrEmpty(icon) ? "<i class=\"fa-solid " + icon + "\"></i>" : name);
-            body += "</button>";
-
-            body += "</form>";
+            else if (jsAction != null)
+            {
+                body += "<button class=\"button\" onclick=\"" + jsAction + "\" " + styles + " >";
+                body += (!string.IsNullOrEmpty(icon) ? "<i class=\"fa-solid " + icon + "\"></i>" : name);
+                body += "</button>";
+            }
+            else
+            {
+                body += "<div class=\"button\" " + styles + "></div>";
+            }
             body += "</div>";
 
             return body;

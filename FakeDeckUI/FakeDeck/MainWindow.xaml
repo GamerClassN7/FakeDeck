@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FakeDeck"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="270" Activated="FakeDeckUI_Activated" WindowStartupLocation="CenterScreen">
+        Title="MainWindow"
+        Activated="FakeDeckUI_Activated"
+        WindowStartupLocation="CenterScreen"
+        Width="280" Height="340">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="270*"/>
+            <RowDefinition Height="270"/>
             <RowDefinition Height="50*"/>
         </Grid.RowDefinitions>
-        <Image x:Name="qr_code" Margin="10,10,10,10"/>
-        <TextBox Margin="10,10,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Row="1"/>
+        <Image x:Name="qr_code" Margin="10,10,10,0"/>
+        <TextBox Margin="10,10,10,10" TextWrapping="Wrap" Text="TextBox" Grid.Row="1" Height="20" VerticalAlignment="Center"/>
     </Grid>
 </Window>

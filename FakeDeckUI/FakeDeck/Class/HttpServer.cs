@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 using System.Net;
 using System.Threading.Tasks;
-using FakeeDeck.ButtonType;
+using FakeDeck.ButtonType;
 using System.Web;
 using static System.Net.WebRequestMethods;
 using File = System.IO.File;
@@ -21,7 +21,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace FakeeDeck.Class
+namespace FakeDeck.Class
 {
     internal class HttpServer
     {
@@ -133,13 +133,13 @@ namespace FakeeDeck.Class
                  Debug.WriteLine(req.UserHostName);
                  Debug.WriteLine(req.UserAgent);*/
 
+                bool isMatch = false;
                 if (req.HttpMethod == "GET" && req.Url.AbsolutePath.Contains("."))
                 {
                     await servFileResponseAsync(req, resp);
                 }
                 else
                 {
-                    bool isMatch = false;
                     foreach (var route in routes[req.HttpMethod])
                     {
                         isMatch = Regex.IsMatch(req.Url.AbsolutePath, route.Key, RegexOptions.IgnoreCase);
@@ -151,16 +151,18 @@ namespace FakeeDeck.Class
                             {
                                 Dictionary<string, string> postParams = parsePostRequestParameters(req);
                                 gelegate.DynamicInvoke([req, resp, postParams]);
+                                break;
+
                             }
-                            else
-                            {
-                                gelegate.DynamicInvoke([req, resp]);
-                            }
+                          
+                            gelegate.DynamicInvoke([req, resp]);
+                            break;
                         }
                     }
 
                     if (!isMatch)
                     {
+                        Debug.WriteLine("NO ROUTE MATCHED");
                         resp.StatusCode = (int)HttpStatusCode.NotFound;
                         await resp.OutputStream.FlushAsync();
                     }
@@ -192,6 +194,7 @@ namespace FakeeDeck.Class
             if (!File.Exists(filename))
             {
                 resp.StatusCode = (int)HttpStatusCode.NotFound;
+                resp.OutputStream.Flush();
                 return;
             }
 
@@ -212,8 +215,8 @@ namespace FakeeDeck.Class
                 while ((nbytes = input.Read(buffer, 0, buffer.Length)) > 0)
                     resp.OutputStream.Write(buffer, 0, nbytes);
                 input.Close();
-                resp.OutputStream.Flush();
                 resp.StatusCode = (int)HttpStatusCode.OK;
+                resp.OutputStream.Flush();
             }
             catch (Exception ex)
             {

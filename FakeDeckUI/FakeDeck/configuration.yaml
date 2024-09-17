@@ -52,6 +52,77 @@ pages:
         parameters:
           - name: Key
             value: bomb
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: orange
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "full-screen"
+          - name: Color
+            value: orange
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+
+      - button: page
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "set-page"
+          - name: PageId
+            value: "media"
+          - name: Image
+            value: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEjIsQcn8NwYWhwISL74xXLGtRHeW1Mn67g&s"
+
+
+  - page: media
+    buttons: 
+      - button: notepad
+        function: ProcessMacro
+        parameters:
+          - name: process
+            value: "notepad.exe"
+          - name: image
+            value: "https://www.club386.com/wp-content/uploads/2021/12/notepad-icon-696x632.jpg"
+
+      - button: cmd
+        function: ProcessMacro
+        parameters:
+          - name: process
+            value: "cmd.exe"
+          - name: image
+            value: "https://winaero.com/blog/wp-content/uploads/2019/06/WIndows-Terminal-icon.png"
 
       - button: mute
         function: MediaMacro
@@ -76,3 +147,52 @@ pages:
         parameters:
           - name: Key
             value: "next"
+      
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "full-screen"
+          - name: Color
+            value: orange
+      
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+
+      - button: spacer
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "spacer"
+          - name: Color
+            value: red
+      - button: page
+        function: FakeDeckMacro
+        parameters:
+          - name: Key
+            value: "set-page"
+          - name: PageId
+            value: "helldivers"
+          - name: Image
+            value: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2oyk6yqmBxt9ejwqBaordr6X9s-dZFnHrvg&s"

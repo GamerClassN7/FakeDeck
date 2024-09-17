@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FakeeDeck.Class
+namespace FakeDeck.Class
 {
     internal class KeyboardCode
     {
