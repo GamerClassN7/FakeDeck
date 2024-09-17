@@ -132,7 +132,7 @@ Just add desired macros to `configuration.yaml` and start the application, tahn 
     - name: process
       value: "cmd.exe"
     - name: arguments #Optional Proces Arguments
-      value: "-d C:/"
+      value: "/C ipconfig"
 ```
 ### Comon Macro Parameters
 ```yaml
