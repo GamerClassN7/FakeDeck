@@ -1,0 +1,10 @@
+﻿{
+  "name": "FakeDeck",
+  "short_name": "FakeDeck",
+  "theme_color": "#fff",
+  "background_color": "#fff",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "scope": "/",
+  "start_url": "/"
+}

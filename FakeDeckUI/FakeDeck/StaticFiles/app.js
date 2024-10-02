@@ -68,6 +68,8 @@ function formToAjax(){
             const target = event.currentTarget;
             target.style.opacity = "0.5"
 
+            navigator.vibrate(200);
+
             console.log(target.method, target.action);
             console.log(form.method, form.action);
             console.log(form === target);

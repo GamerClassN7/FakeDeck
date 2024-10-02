@@ -56,6 +56,7 @@ namespace FakeDeck.Class
                 {".img", "application/octet-stream"},
                 {".iso", "application/octet-stream"},
                 {".jar", "application/java-archive"},
+                {".json", "application/json"},
                 {".jardiff", "application/x-java-archive-diff"},
                 {".jng", "image/x-jng"},
                 {".jnlp", "application/x-java-jnlp-file"},
