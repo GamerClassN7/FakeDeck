@@ -37,7 +37,7 @@ namespace FakeDeck.ButtonType
 
 
             //Defensive
-            { "mortar-sentry", new uint[] { 0x65, Key_Down, Key_Up, Key_Right, Key_Down}},
+            { "mortar-sentry", new uint[] { 0x65, Key_Down, Key_Up, Key_Right, Key_Right, Key_Down }},
             { "gatling-sentry", new uint[] { 0x65, Key_Down, Key_Up, Key_Right, Key_Left}},
 
 
